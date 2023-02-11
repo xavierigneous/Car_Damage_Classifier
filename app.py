@@ -7,11 +7,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__),'uploads')
 print(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# Load the saved TensorFlow model
-# model = tf.keras.models.load_model('model.h5')
-
-# damage_model = keras.models.load_model(r'classifier\models\MobileNet_Car_Classifier.h5')
-# location_pred_model = keras.models.load_model(r'classifier\models\MobileNet_Car_Damage_Location.h5')
 
 @app.route('/')
 def home():
