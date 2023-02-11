@@ -23,7 +23,7 @@ def get_prediction(image):
     return(label)
 
 def get_damage_part(image):
-    damage_model = load_model(os.path.join(MODEL_FOLDER,'MobileNet_Car_Damaged_Part.h5'))
-    label = location[int(damage_model.predict(image).argmax(axis=-1))]
+    damage_part_model = load_model(os.path.join(MODEL_FOLDER,'MobileNet_Car_Damaged_Part.h5'), compile=False)
+    label = location[int(damage_part_model.predict(image).argmax(axis=-1))]
     print(label)
     return(label)
