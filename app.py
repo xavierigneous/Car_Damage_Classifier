@@ -26,10 +26,15 @@ def predict():
         # Use the TensorFlow model to make a prediction
         prediction = get_prediction(image_data)
 
+        damage_part = get_damage_part(image_data)
+
         # uploaded_image = file #return_image(file)
 
         # Return the prediction result as JSON
-        return render_template('homepage.html', damage_report=prediction, uploaded_image = filename)
+        return render_template('homepage.html', 
+        damage_report=prediction, 
+        damage_part=damage_part,
+        uploaded_image = filename)
     return render_template('homepage.html')
 
 if __name__ == '__main__':
