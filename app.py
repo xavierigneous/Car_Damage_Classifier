@@ -28,12 +28,15 @@ def predict():
 
         damage_part = get_damage_part(image_data)
 
+        damage_level = get_damage_severity(image_data)
+
         # uploaded_image = file #return_image(file)
 
         # Return the prediction result as JSON
         return render_template('homepage.html', 
         damage_report=prediction, 
         damage_part=damage_part,
+        damage_level=damage_level,
         uploaded_image = filename)
     return render_template('homepage.html')
 
