@@ -1,6 +1,7 @@
 from keras.models import load_model
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
+import tensorflow as tf
+from tf.keras.preprocessing.image import load_img
+from tf.keras.preprocessing.image import img_to_array
 # from keras.applications.vgg16 import VGG16
 import app, os, base64
 import numpy as np

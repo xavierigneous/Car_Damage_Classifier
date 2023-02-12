@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-import keras
+import tensorflow as tf
 from classifier_model import *
 import json, base64, os, time, sys
 
@@ -25,10 +25,15 @@ def predict():
 
         # Use the TensorFlow model to make a prediction
         prediction = get_prediction(image_data)
+        if prediction == 'No Damage':
+            damage_part = ''
 
-        damage_part = get_damage_part(image_data)
+            damage_level = ''
+        else:
 
-        damage_level = get_damage_severity(image_data)
+            damage_part = get_damage_part(image_data)
+
+            damage_level = get_damage_severity(image_data)
 
         # uploaded_image = file #return_image(file)
 
