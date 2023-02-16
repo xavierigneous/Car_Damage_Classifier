@@ -1,8 +1,6 @@
-from flask import Flask, request, jsonify, render_template
-import tensorflow as tf
-from classifier_model import *
-import json, base64, os, time, sys
+from flask import Flask, request, render_template
 
+import os
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__),'uploads')
 print(UPLOAD_FOLDER)
@@ -11,7 +9,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def home():
     return render_template('homepage.html')
-
+from classifier_model import *
 @app.route('/', methods=['POST', 'GET'])
 def predict():
     if request.method == 'POST':
@@ -22,6 +20,7 @@ def predict():
 
         # Read the image data
         image_data = image_preprocess(filename)
+        image_data_small = image_preprocess_small(filename)
 
         # Use the TensorFlow model to make a prediction
         prediction = get_prediction(image_data)
@@ -31,15 +30,15 @@ def predict():
             damage_level = ''
         else:
 
-            damage_part = get_damage_part(image_data)
+            damage_part = get_damage_part(image_data_small)
 
-            damage_level = get_damage_severity(image_data)
+            damage_level = get_damage_severity(image_data_small)
 
         # uploaded_image = file #return_image(file)
 
         # Return the prediction result as JSON
-        return render_template('homepage.html', 
-        damage_report=prediction, 
+        return render_template('homepage.html',
+        damage_report=prediction,
         damage_part=damage_part,
         damage_level=damage_level,
         uploaded_image = filename)

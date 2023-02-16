@@ -1,9 +1,8 @@
-from keras.models import load_model
-import tensorflow as tf
-from tf.keras.preprocessing.image import load_img
-from tf.keras.preprocessing.image import img_to_array
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import img_to_array
 # from keras.applications.vgg16 import VGG16
-import app, os, base64
+import os, base64
 import numpy as np
 damage=['Damaged', 'No Damage']
 location=['Front','Rear','Side']
@@ -13,7 +12,12 @@ def image_preprocess(filename):
     image = load_img(filename, target_size=(300, 300))
     image = np.expand_dims(img_to_array(image) / 255, axis=0)
     return(image)
-    
+
+def image_preprocess_small(filename):
+    image = load_img(filename, target_size=(224, 224))
+    image = np.expand_dims(img_to_array(image) / 255, axis=0)
+    return(image)
+
 def return_image(uploaded_image):
     display_image = base64.b64encode(uploaded_image.read()).decode()
     return display_image

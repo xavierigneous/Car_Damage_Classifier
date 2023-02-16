@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+<style type="text/css">
+.flex-container {
+  display: flex;
+
+  /*this centers the text horizontally*/
+  justify-content: center;
+
+  /*this centers the text vertically*/
+  align-items: center;
+
+  height: 200px;
+  color: #fff;
+  font-size: 1.2rem;
+  background: #00008b;
+}
+</style>
+<h1 align="middle">Car Damage Level Assessment</h1>
 </head>
 
 <body>
@@ -11,7 +27,7 @@
 </form>
 </body>
 <br><br>
-{% if damage_report %}
+{% if damage_report == 'Damaged' %}
   <img src="data:image/png;base64,{{uploaded_image | safe}}" align="middle"/>
   <img src="{{ uploaded_image | safe}}" align="middle"/>
   <img src="{{ uploaded_image }}" class="img-thumbnail" align="middle">
@@ -20,7 +36,7 @@
   {% for message in messages %}
 			    {% if 'error' in message.tags and 'damaged' in message.tags %}
 			    <div class="success-message" style ="color: #00FF00">{{ message }}</div>
-			    
+
           {% elif 'success' in message.tags and 'not_damaged' in message.tags %}
 			    <div class="success-message" style ="color: #ff0000">{{ message }}</div>
 			    {% endif %}
@@ -29,10 +45,11 @@
 
   {{damage_report}}
   <br>
-  {{damage_part}}
+  Damaged Part : {{damage_part}}
   <br>
-  {{damage_level}}
+  Damage Level : {{damage_level}}
   <br>
-  
+{% else %}
+    {{damage_report}}
 {% endif %}
 </html>
