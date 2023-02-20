@@ -7,7 +7,8 @@ import numpy as np
 damage=['Damaged', 'No Damage']
 location=['Front','Rear','Side']
 level = ['Minor','Moderate','Severe']
-MODEL_FOLDER = os.path.join(os.path.dirname(__file__),'models')
+MODEL_FOLDER = os.path.join(os.path.dirname(__file__),'models/2.4')
+V2_MODEL_FOLDER = os.path.join(os.path.dirname(__file__),'models/2.4/V2')
 def image_preprocess(filename):
     image = load_img(filename, target_size=(300, 300))
     image = np.expand_dims(img_to_array(image) / 255, axis=0)
@@ -29,13 +30,13 @@ def get_prediction(image):
     return(label)
 
 def get_damage_part(image):
-    damage_part_model = load_model(os.path.join(MODEL_FOLDER,'MobileNet_Car_Damaged_Part.h5'), compile=False)
+    damage_part_model = load_model(os.path.join(V2_MODEL_FOLDER,'MobileNet_Car_Damaged_Part.h5'), compile=False)
     label = location[int(damage_part_model.predict(image).argmax(axis=-1))]
     print(label)
     return(label)
 
 def get_damage_severity(image):
-    damage_part_model = load_model(os.path.join(MODEL_FOLDER,'MobileNet_Damage_Level_Classifier.h5'), compile=False)
+    damage_part_model = load_model(os.path.join(V2_MODEL_FOLDER,'MobileNet_Damage_Level_Classifier.h5'), compile=False)
     label = level[int(damage_part_model.predict(image).argmax(axis=-1))]
     print(label)
     return(label)
