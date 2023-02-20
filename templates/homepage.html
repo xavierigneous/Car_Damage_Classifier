@@ -29,8 +29,7 @@
 <br><br>
 {% if damage_report == 'Damaged' %}
   <img src="data:image/png;base64,{{uploaded_image | safe}}" align="middle"/>
-  <img src="{{ uploaded_image | safe}}" align="middle"/>
-  <img src="{{ uploaded_image }}" class="img-thumbnail" align="middle">
+  
   <br><br>
 
   {% for message in messages %}

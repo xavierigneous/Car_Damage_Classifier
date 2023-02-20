@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 
+from classifier_model import *
 import os
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__),'uploads')
@@ -9,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def home():
     return render_template('homepage.html')
-from classifier_model import *
+
 @app.route('/', methods=['POST', 'GET'])
 def predict():
     if request.method == 'POST':
@@ -30,12 +31,13 @@ def predict():
             damage_level = ''
         else:
 
-            damage_part = get_damage_part(image_data_small)
+            damage_part = get_damage_part(image_data)
 
-            damage_level = get_damage_severity(image_data_small)
+            damage_level = get_damage_severity(image_data)
 
         # uploaded_image = file #return_image(file)
-
+        return_image(filename)
+        uploaded_image = plot()
         # Return the prediction result as JSON
         return render_template('homepage.html',
         damage_report=prediction,

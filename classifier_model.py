@@ -3,7 +3,11 @@ from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.preprocessing.image import img_to_array
 # from keras.applications.vgg16 import VGG16
 import os, base64
+from io import BytesIO
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 damage=['Damaged', 'No Damage']
 location=['Front','Rear','Side']
 level = ['Minor','Moderate','Severe']
@@ -19,8 +23,10 @@ def image_preprocess_small(filename):
     image = np.expand_dims(img_to_array(image) / 255, axis=0)
     return(image)
 
-def return_image(uploaded_image):
-    display_image = base64.b64encode(uploaded_image.read()).decode()
+def return_image(filename):
+    # display_image = base64.b64encode(uploaded_image.read()).decode()
+    img = mpimg.imread(filename)
+    display_image = plt.imshow(img)
     return display_image
 
 def get_prediction(image):
@@ -40,3 +46,15 @@ def get_damage_severity(image):
     label = level[int(damage_part_model.predict(image).argmax(axis=-1))]
     print(label)
     return(label)
+
+def plot():
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
+    buffer.flush()
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graph = base64.b64encode(image_png)
+    graph = graph.decode('utf-8')
+    buffer.flush()
+    buffer.close()
+    return graph
