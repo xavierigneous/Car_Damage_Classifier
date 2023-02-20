@@ -43,7 +43,7 @@ def predict():
         damage_report=prediction,
         damage_part=damage_part,
         damage_level=damage_level,
-        uploaded_image = filename)
+        uploaded_image = uploaded_image)
     return render_template('homepage.html')
 
 if __name__ == '__main__':

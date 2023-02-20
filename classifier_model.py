@@ -27,6 +27,7 @@ def return_image(filename):
     # display_image = base64.b64encode(uploaded_image.read()).decode()
     img = mpimg.imread(filename)
     display_image = plt.imshow(img)
+    plt.axis('off')
     return display_image
 
 def get_prediction(image):

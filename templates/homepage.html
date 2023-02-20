@@ -1,37 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-.flex-container {
-  display: flex;
-
-  /*this centers the text horizontally*/
-  justify-content: center;
-
-  /*this centers the text vertically*/
-  align-items: center;
-
-  height: 200px;
-  color: #fff;
-  font-size: 1.2rem;
-  background: #00008b;
-}
-</style>
-<h1 align="middle">Car Damage Level Assessment</h1>
+<h1 style="background-color:powderblue; font-family:verdana;"  align="middle">Car Damage Level Assessment</h1>
 </head>
-
 <body>
+
 <form method="post" enctype="multipart/form-data" name="file" align="middle">
-  <input type="file" name="file" accept="image/*"/>
-  <input type="submit" name="image_upload" value="Upload" />
+  <input type="file" name="file" accept="image/*" size="100"/>
+  <input type="submit" name="image_upload" value="Upload" onclick="loading();"/>
 </form>
 </body>
 <br><br>
-{% if damage_report == 'Damaged' %}
-  <img src="data:image/png;base64,{{uploaded_image | safe}}" align="middle"/>
-  
-  <br><br>
-
+{% if uploaded_image %}
+  <div align="middle">
+      <label size="100">Damage Report</label><br><br>
+        <img src="data:image/jpeg;base64,{{ uploaded_image }}">
+        <br><br>
+  </div>
+{% endif %}
+{% if damage_report %}
   {% for message in messages %}
 			    {% if 'error' in message.tags and 'damaged' in message.tags %}
 			    <div class="success-message" style ="color: #00FF00">{{ message }}</div>
@@ -41,14 +28,19 @@
 			    {% endif %}
 
 			{% endfor %}
-
+<div align="middle">
   {{damage_report}}
   <br>
   Damaged Part : {{damage_part}}
   <br>
   Damage Level : {{damage_level}}
   <br>
-{% else %}
-    {{damage_report}}
+  </div>
 {% endif %}
+<p>
+<p>
+<div id='false_prediction_form' align='middle'>
+<button style="background-image:url('https://www.flaticon.com/free-icon/right-arrow-circular-button-outline_54240#')">Report False Prediction</button>
+</div>
+
 </html>
